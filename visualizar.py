@@ -1,6 +1,9 @@
 import numpy as np
 from spectral import envi
 import matplotlib.pyplot as plt
+import os
+import glob
+import time
 
 
 def encontrar_banda_mais_proxima(wavelengths, target_wavelength):
@@ -13,9 +16,21 @@ def converter_raw_para_rgb(caminho_arquivo_hdr, caminho_saida_rgb):
     """
     Lê um arquivo hiperespectral ENVI (.raw + .hdr) e o converte para uma imagem
     RGB visível (.png) com aprimoramento de contraste.
-    Este script agora lida com a ausência de dados de comprimento de onda.
     """
     try:
+        # Verifica se o arquivo .hdr existe
+        if not os.path.exists(caminho_arquivo_hdr):
+            print(f"Arquivo .hdr não encontrado: {caminho_arquivo_hdr}")
+            return False
+
+        # Verifica se o arquivo .raw correspondente existe
+        caminho_raw = caminho_arquivo_hdr.replace('.hdr', '.raw')
+        if not os.path.exists(caminho_raw):
+            print(f"Arquivo .raw não encontrado: {caminho_raw}")
+            return False
+
+        print(f"\n--- PROCESSANDO: {os.path.basename(caminho_arquivo_hdr)} ---")
+
         # 1. Ler o cabeçalho para obter metadados
         hdr = envi.read_envi_header(caminho_arquivo_hdr)
         img = envi.open(caminho_arquivo_hdr)
@@ -66,20 +81,156 @@ def converter_raw_para_rgb(caminho_arquivo_hdr, caminho_saida_rgb):
 
         # 5. Salvar a imagem RGB final
         plt.imsave(caminho_saida_rgb, rgb_final)
-        print(f"\nSucesso! Imagem RGB visível salva em: '{caminho_saida_rgb}'")
+        print(f"Sucesso! Imagem RGB visível salva em: '{caminho_saida_rgb}'")
+        return True
 
     except FileNotFoundError:
-        print(f"Erro: Arquivo de cabeçalho não encontrado em '{caminho_arquivo_hdr}'")
+        print(f"Erro: Arquivo não encontrado em '{caminho_arquivo_hdr}'")
+        return False
     except Exception as e:
         print(f"Ocorreu um erro inesperado: {e}")
+        return False
 
 
-# --- COMO USAR O SCRIPT ---
+def processar_todos_arquivos_raw(pasta_entrada, pasta_saida):
+    """
+    Processa todos os arquivos .hdr/.raw da pasta de entrada
+    """
+    print("=== PROCESSANDO TODOS OS ARQUIVOS RAW PARA RGB ===")
+
+    # Cria a pasta de saída se não existir
+    os.makedirs(pasta_saida, exist_ok=True)
+
+    # Encontra todos os arquivos .hdr na pasta de entrada
+    arquivos_hdr = glob.glob(os.path.join(pasta_entrada, "*.hdr"))
+
+    if not arquivos_hdr:
+        print(f"Nenhum arquivo .hdr encontrado na pasta: {pasta_entrada}")
+        return
+
+    print(f"Encontrados {len(arquivos_hdr)} arquivos para processar")
+
+    sucessos = 0
+    erros = 0
+
+    for caminho_hdr in arquivos_hdr:
+        # Verifica se o arquivo .raw correspondente existe
+        caminho_raw = caminho_hdr.replace('.hdr', '.raw')
+        if not os.path.exists(caminho_raw):
+            print(f"AVISO: Arquivo .raw não encontrado para: {caminho_hdr}")
+            erros += 1
+            continue
+
+        # Gera nome de saída
+        nome_base = os.path.splitext(os.path.basename(caminho_hdr))[0]
+        caminho_saida = os.path.join(pasta_saida, f"{nome_base}_rgb.png")
+
+        # Processa o arquivo
+        sucesso = converter_raw_para_rgb(caminho_hdr, caminho_saida)
+
+        if sucesso:
+            sucessos += 1
+        else:
+            erros += 1
+
+    print(f"\n=== RESUMO DO PROCESSAMENTO ===")
+    print(f"Arquivos processados com sucesso: {sucessos}")
+    print(f"Arquivos com erro: {erros}")
+    print(f"Total: {sucessos + erros}")
+    print(f"Imagens RGB salvas em: {pasta_saida}")
+
+
+def monitorar_pasta_raw(pasta_entrada, pasta_saida, intervalo=10):
+    """
+    Monitora continuamente a pasta de entrada por novos arquivos .hdr/.raw
+    """
+    print("=== INICIANDO MONITORAMENTO DE ARQUIVOS RAW ===")
+    print(f"Pasta de entrada: {pasta_entrada}")
+    print(f"Pasta de saída: {pasta_saida}")
+    print(f"Verificando novos arquivos a cada {intervalo} segundos...")
+    print("Pressione Ctrl+C para parar\n")
+
+    # Cria a pasta de saída se não existir
+    os.makedirs(pasta_saida, exist_ok=True)
+
+    # Processa arquivos existentes primeiro
+    processar_todos_arquivos_raw(pasta_entrada, pasta_saida)
+
+    # Conjunto para rastrear arquivos já processados
+    arquivos_processados = set(glob.glob(os.path.join(pasta_entrada, "*.hdr")))
+
+    print(f"\n=== INICIANDO MONITORAMENTO ===")
+    print("Aguardando novos arquivos... (Ctrl+C para parar)")
+
+    try:
+        while True:
+            # Verifica por novos arquivos
+            arquivos_atual = set(glob.glob(os.path.join(pasta_entrada, "*.hdr")))
+            novos_arquivos = arquivos_atual - arquivos_processados
+
+            for caminho_hdr in novos_arquivos:
+                # Verifica se o arquivo .raw correspondente existe
+                caminho_raw = caminho_hdr.replace('.hdr', '.raw')
+                if os.path.exists(caminho_raw):
+                    print(f"Novo arquivo detectado: {os.path.basename(caminho_hdr)}")
+
+                    # Gera nome de saída
+                    nome_base = os.path.splitext(os.path.basename(caminho_hdr))[0]
+                    caminho_saida = os.path.join(pasta_saida, f"{nome_base}_rgb.png")
+
+                    # Processa o arquivo
+                    sucesso = converter_raw_para_rgb(caminho_hdr, caminho_saida)
+
+                    if sucesso:
+                        arquivos_processados.add(caminho_hdr)
+                        print(f"Arquivo processado com sucesso: {nome_base}_rgb.png")
+                    else:
+                        print(f"Falha ao processar: {os.path.basename(caminho_hdr)}")
+                else:
+                    print(f"Aguardando arquivo .raw correspondente para: {caminho_hdr}")
+
+            # Aguarda antes da próxima verificação
+            time.sleep(intervalo)
+
+    except KeyboardInterrupt:
+        print("\nParando monitoramento...")
+    except Exception as e:
+        print(f"Erro no monitoramento: {e}")
+
+
+def modo_processamento_unico(pasta_entrada, pasta_saida):
+    """
+    Modo único: processa todos os arquivos e termina
+    """
+    print("=== MODO PROCESSAMENTO ÚNICO ===")
+    processar_todos_arquivos_raw(pasta_entrada, pasta_saida)
+    print("Processamento concluído.")
+
+
+# --- EXECUÇÃO PRINCIPAL ---
 if __name__ == '__main__':
-    # Verifique se este é o nome correto do seu arquivo .hdr
-    arquivo_hdr_entrada = 'C:/Users/hugo/OneDrive/Documentos/codecraft/EMIT_L2A_reflectance_convertido.hdr'
+    # CONFIGURAÇÕES
+    PASTA_ENTRADA = 'processados'  # Pasta com arquivos .hdr/.raw originais
+    PASTA_SAIDA = 'final'  # Pasta onde as imagens RGB serão salvas
 
-    # Defina o nome para a imagem de saída
-    arquivo_png_saida = 'imagem_rgb_visivel.png'
+    MODO_MONITORAMENTO = True  # True para monitorar continuamente, False para processar uma vez
 
-    converter_raw_para_rgb(arquivo_hdr_entrada, arquivo_png_saida)
+    # Cria diretórios se não existirem
+    os.makedirs(PASTA_ENTRADA, exist_ok=True)
+    os.makedirs(PASTA_SAIDA, exist_ok=True)
+
+    print("=== CONVERSOR RAW PARA RGB ===")
+    print(f"Pasta de entrada: {PASTA_ENTRADA}")
+    print(f"Pasta de saída: {PASTA_SAIDA}")
+    print()
+
+    try:
+        if MODO_MONITORAMENTO:
+            # Modo monitoramento contínuo
+            monitorar_pasta_raw(PASTA_ENTRADA, PASTA_SAIDA, intervalo=10)
+        else:
+            # Modo processamento único
+            modo_processamento_unico(PASTA_ENTRADA, PASTA_SAIDA)
+
+    except Exception as e:
+        print(f"Erro na execução: {e}")
