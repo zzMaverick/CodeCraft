@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂Vision - Monitoramento Ambiental via IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">CO₂Vision</div>
+            <ul class="nav-menu">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#differential">Diferenciais</a></li>
+                <li><a href="#demo">Demo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Tecnologia Hiperespectral</div>
+            <h1 class="hero-title">Monitorando o impacto invisível do CO₂ na Terra</h1>
+            <p class="hero-subtitle">Nosso modelo analisa imagens hiperespectrais para detectar padrões de degradação ambiental imperceptíveis ao olho humano.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">224</div>
+                    <div class="stat-label">Bandas Espectrais</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">96%</div>
+                    <div class="stat-label">Precisão</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&lt;3min</div>
+                    <div class="stat-label">Processamento</div>
+                </div>
+            </div>
+            <button class="cta-button" onclick="smoothScroll('#about')">
+                <span>Explorar Tecnologia</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">O Problema</span>
+                <h2 class="section-title">Degradação Invisível aos Olhos</h2>
+                <p class="section-description">A degradação ambiental começa muito antes de ser visível. Nosso algoritmo detecta essas mudanças sutis usando inteligência artificial e análise espectral avançada.</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Como Funciona?</h3>
+                    <p>Nosso algoritmo combina <strong>aprendizado profundo</strong> com <strong>análise espectral</strong> para identificar regiões afetadas por alta concentração de CO₂, mesmo quando visualmente parecem saudáveis.</p>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M12 2V4M12 20V22M4 12H2M6.31412 6.31412L4.8999 4.8999M17.6859 6.31412L19.1001 4.8999M6.31412 17.69L4.8999 19.1042M17.6859 17.69L19.1001 19.1042M22 12H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Captura Hiperespectral</h4>
+                                <p>Analisamos 224 bandas do espectro eletromagnético, muito além do visível (RGB).</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Deep Learning</h4>
+                                <p>Autoencoder treinado para reconhecer padrões normais e detectar anomalias.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Detecção Precoce</h4>
+                                <p>Identificamos degradação antes que seja visível a olho nu ou em imagens RGB.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-steps">
+                        <h4>Pipeline de Processamento:</h4>
+                        <div class="steps">
+                            <div class="step">1. Treinamento em área preservada</div>
+                            <div class="step">2. Análise da área alvo</div>
+                            <div class="step">3. Detecção de anomalias</div>
+                            <div class="step">4. Mapa de risco gerado</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual">
+                    <div class="comparison-container">
+                        <div class="comparison-header">
+                            <h4>Análise Comparativa</h4>
+                            <p>Faça upload de um arquivo .nc na seção Demo para ver os resultados</p>
+                        </div>
+                        <div class="image-comparison" id="imageComparison" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); display: flex; align-items: center; justify-content: center;">
+                            <div style="text-align: center; color: #6b7280;">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" style="margin: 0 auto 1rem;">
+                                    <path d="M4 16L8.586 11.414C9.367 10.633 10.633 10.633 11.414 11.414L16 16M14 14L15.586 12.414C16.367 11.633 17.633 11.633 18.414 12.414L20 14M14 8H14.01M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <p><strong>Faça upload de um arquivo .nc</strong></p>
+                                <p style="font-size: 0.9rem;">Os resultados aparecerão aqui após o processamento</p>
+                            </div>
+                            <!-- Imagens comentadas até termos resultados
+                            <div class="comparison-image original">
+                                <img src="imagem_rgb_visivel.png" alt="Imagem RGB Original">
+                                <div class="image-label original-label">RGB Visível</div>
+                            </div>
+                            <div class="comparison-image processed">
+                                <img src="mapa_anomalia_visual_refinado.png" alt="Mapa de Anomalias">
+                                <div class="image-label processed-label">Anomalias Detectadas</div>
+                            </div>
+                            <div class="comparison-slider" id="comparisonSlider">
+                                <div class="slider-button">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                        <div class="comparison-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #2563eb;"></span>
+                                <span>Baixo Risco</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #fbbf24;"></span>
+                                <span>Médio Risco</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background: #ef4444;"></span>
+                                <span>Alto Risco</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Como funciona:</strong> Faça upload de um arquivo NetCDF (.nc) na seção Demo abaixo.</p>
+                        <p>Após o processamento, você verá a comparação entre a imagem RGB visível e o mapa de anomalias detectadas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Identification Section -->
+    <section class="identification">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Análise Visual</span>
+                <h2 class="section-title">Como Identificar Degradação</h2>
+                <p class="section-description">A vegetação exposta a altos níveis de CO₂ apresenta padrões sutis — como redução na densidade espectral e leve mudança no tom de verde — que, embora invisíveis ao olhar comum, podem ser detectados por modelos espectrais.</p>
+            </div>
+
+            <div class="identification-grid">
+                <div class="identification-card">
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Alterações Espectrais</h3>
+                    <p>Áreas com vegetação estressada apresentam mudanças na reflectância espectral, indicando redução na atividade fotossintética.</p>
+                    <div class="color-sample" style="background: linear-gradient(90deg, #10b981 0%, #fbbf24 50%, #ef4444 100%);"></div>
+                </div>
+
+                <div class="identification-card">
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 19V6L20 3V16M9 19C9 20.1046 7.65685 21 6 21C4.34315 21 3 20.1046 3 19C3 17.8954 4.34315 17 6 17C7.65685 17 9 17.8954 9 19ZM20 16C20 17.1046 18.6569 18 17 18C15.3431 18 14 17.1046 14 16C14 14.8954 15.3431 14 17 14C18.6569 14 20 14.8954 20 16ZM9 10L20 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Densidade Espectral</h3>
+                    <p>Redução na reflectância do infravermelho próximo indica estresse vegetal antes de sintomas visíveis aparecerem.</p>
+                    <div class="spectral-graph">
+                        <div class="graph-bar" style="height: 80%;"></div>
+                        <div class="graph-bar" style="height: 60%;"></div>
+                        <div class="graph-bar" style="height: 40%;"></div>
+                        <div class="graph-bar" style="height: 30%;"></div>
+                    </div>
+                </div>
+
+                <div class="identification-card">
+                    <div class="card-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 2V6M15 2V6M3 8H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Temperatura Superficial</h3>
+                    <p>Áreas degradadas tendem a ter maior temperatura devido à redução da evapotranspiração.</p>
+                    <div class="temp-indicator">
+                        <span class="temp-normal">24°C</span>
+                        <span class="temp-arrow">→</span>
+                        <span class="temp-high">32°C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differential Section -->
+    <section id="differential" class="differential">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Por Que Somos Únicos</span>
+                <h2 class="section-title">Nossos Diferenciais</h2>
+            </div>
+
+            <div class="differential-grid">
+                <div class="diff-card">
+                    <div class="diff-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>Precisão Espectral</h3>
+                    <p>Análise de 224 bandas espectrais para detecção subvisual de degradação ambiental.</p>
+                    <div class="diff-metric">224x mais dados que RGB</div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 3V15M15 9V21M3 11H9M15 11H21M7 19H17C18.1046 19 19 18.1046 19 17V7C19 5.89543 18.1046 5 17 5H7C5.89543 5 5 5.89543 5 7V17C5 18.1046 5.89543 19 7 19Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Modelo Treinado</h3>
+                    <p>Calibrado com datasets ambientais reais do Parque das Emas e validado em campo.</p>
+                    <div class="diff-metric">92% de acurácia</div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3>Processamento Rápido</h3>
+                    <p>Otimizado para analisar grandes áreas em minutos, não horas ou dias.</p>
+                    <div class="diff-metric">3 min / 2.450 km²</div>
+                </div>
+
+                <div class="diff-card">
+                    <div class="diff-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>Interpretação Científica</h3>
+                    <p>Traduz resultados complexos em insights visuais claros e acionáveis.</p>
+                    <div class="diff-metric">Mapas GeoTIFF prontos</div>
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <h3>Comparação Técnica</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Multiespectral</th>
+                            <th class="highlight">Hiperespectral (Nós)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bandas Espectrais</td>
+                            <td>4-13 bandas</td>
+                            <td class="highlight"><strong>224 bandas</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Acurácia</td>
+                            <td>~70%</td>
+                            <td class="highlight"><strong>92%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Detecção Precoce</td>
+                            <td>❌ Não</td>
+                            <td class="highlight"><strong>✅ Sim</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Tempo de Processo</td>
+                            <td>15-30 min</td>
+                            <td class="highlight"><strong>3-5 min</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Custo/km²</td>
+                            <td>R$ 5-10</td>
+                            <td class="highlight"><strong>R$ 0,50</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Experimente</span>
+                <h2 class="section-title">Teste com Seu Próprio Dataset</h2>
+                <p class="section-description">Envie um arquivo NetCDF (.nc) e veja nosso algoritmo em ação</p>
+            </div>
+
+            <div class="demo-container">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content" id="uploadContent">
+                        <div class="upload-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 16C4.79086 16 3 14.2091 3 12C3 9.79086 4.79086 8 7 8C7.51944 8 8.01214 8.10873 8.45569 8.30497C9.27698 5.51098 11.8962 3.5 15 3.5C18.5899 3.5 21.5 6.41015 21.5 10C21.5 10.4132 21.4596 10.8168 21.3828 11.2068C22.3551 11.8663 23 12.9556 23 14.1818C23 16.0695 21.5036 17.5909 19.6364 17.5909M12 11V21M12 11L9 14M12 11L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3>Arraste seu arquivo .nc aqui</h3>
+                        <p>ou clique para selecionar</p>
+                        <button class="upload-button" onclick="document.getElementById('fileInput').click()">Selecionar Arquivo</button>
+                        <input type="file" id="fileInput" accept=".nc" style="display: none;">
+                        <p class="upload-note">Formato aceito: NetCDF (.nc) • Máx: 500MB</p>
+                    </div>
+
+                    <div class="processing-content" id="processingContent" style="display: none;">
+                        <div class="processing-animation">
+                            <div class="spinner"></div>
+                        </div>
+                        <h3>Processando seu dataset...</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">Carregando dados hiperespectrais...</p>
+                        <div class="processing-steps">
+                            <div class="proc-step" id="step1">✓ Arquivo carregado</div>
+                            <div class="proc-step" id="step2">⏳ Processando 224 bandas...</div>
+                            <div class="proc-step" id="step3">⏳ Aplicando modelo...</div>
+                            <div class="proc-step" id="step4">⏳ Gerando mapa de anomalias...</div>
+                        </div>
+                    </div>
+
+                    <div class="result-content" id="resultContent" style="display: none;">
+                        <div class="result-header">
+                            <div class="success-icon">✓</div>
+                            <h3>Análise Concluída!</h3>
+                            <p>Seu dataset foi processado com sucesso</p>
+                        </div>
+                        <div class="result-stats">
+                            <div class="result-stat">
+                                <div class="stat-value" id="highRisk">3.2%</div>
+                                <div class="stat-label">Alto Risco</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="stat-value" id="mediumRisk">8.7%</div>
+                                <div class="stat-label">Médio Risco</div>
+                            </div>
+                            <div class="result-stat">
+                                <div class="stat-value" id="lowRisk">88.1%</div>
+                                <div class="stat-label">Baixo Risco</div>
+                            </div>
+                        </div>
+                        
+                        <!-- NOVA SEÇÃO: Preview dos resultados -->
+                        <div class="result-preview">
+                            <h4>Visualizar Resultados</h4>
+                            <p style="color: var(--gray-medium); font-size: 0.9rem; margin-bottom: 1rem;">
+                                Role para cima para ver a comparação interativa na seção "Análise Comparativa"
+                            </p>
+                            <button class="scroll-to-comparison-button" onclick="smoothScroll('#about')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                    <path d="M5 12L10 7M10 7L15 12M10 7V21M19 12V18C19 18.5304 18.7893 19.0391 18.4142 19.4142C18.0391 19.7893 17.5304 20 17 20H7C6.46957 20 5.96086 19.7893 5.58579 19.4142C5.21071 19.0391 5 18.5304 5 18V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Ver Comparação Interativa
+                            </button>
+                        </div>
+                        
+                        <button class="download-button">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Baixar Arquivos (PNG + TIF)
+                        </button>
+                        <button class="reset-button" onclick="resetDemo()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                <path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Analisar Outro Dataset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="demo-info">
+                    <h3>Como Funciona a Análise?</h3>
+                    <div class="info-steps">
+                        <div class="info-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Upload do Dataset</h4>
+                                <p>Seu arquivo NetCDF é carregado e validado</p>
+                            </div>
+                        </div>
+                        <div class="info-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Processamento Espectral</h4>
+                                <p>224 bandas são analisadas pelo autoencoder</p>
+                            </div>
+                        </div>
+                        <div class="info-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Detecção de Anomalias</h4>
+                                <p>Algoritmo identifica padrões anormais</p>
+                            </div>
+                        </div>
+                        <div class="info-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Mapa de Risco</h4>
+                                <p>Resultado visual pronto para análise</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demo-note">
+                        <strong>Nota:</strong> Esta é uma demonstração. O processamento real seria feito no servidor com maior capacidade computacional.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>CO₂Vision</h3>
+                    <p>Desenvolvido para demonstrar o potencial de análise ambiental via visão computacional e aprendizado profundo.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Projeto</h4>
+                        <ul>
+                            <li><a href="#about">Sobre</a></li>
+                            <li><a href="#differential">Diferenciais</a></li>
+                            <li><a href="#demo">Demonstração</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Tecnologia</h4>
+                        <ul>
+                            <li><a href="#">Deep Learning</a></li>
+                            <li><a href="#">Autoencoder</a></li>
+                            <li><a href="#">Análise Espectral</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Contato</h4>
+                        <ul>
+                            <li><a href="mailto:contato@co2vision.com">Email</a></li>
+                            <li><a href="#">GitHub</a></li>
+                            <li><a href="#">Documentação</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 CO₂Vision - Todos os direitos reservados</p>
+                <p>Desenvolvido para Hackathon CodeCraft</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
