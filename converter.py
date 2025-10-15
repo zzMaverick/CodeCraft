@@ -1,6 +1,49 @@
 import xarray as xr
 import numpy as np
-import sys
+import os
+import time
+import glob
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+import threading
+
+
+class EMITFileHandler(FileSystemEventHandler):
+    def __init__(self, input_folder, output_folder, processed_files):
+        self.input_folder = input_folder
+        self.output_folder = output_folder
+        self.processed_files = processed_files
+
+    def on_created(self, event):
+        if event.is_directory:
+            return
+
+        if event.src_path.endswith('.nc'):
+            print(f"Novo arquivo detectado: {event.src_path}")
+            time.sleep(2)  # Espera um pouco para garantir que o arquivo esteja completamente escrito
+            self.process_file(event.src_path)
+
+    def on_moved(self, event):
+        if event.dest_path.endswith('.nc'):
+            print(f"Arquivo movido para a pasta: {event.dest_path}")
+            time.sleep(2)
+            self.process_file(event.dest_path)
+
+    def process_file(self, file_path):
+        if file_path in self.processed_files:
+            print(f"Arquivo {file_path} já foi processado anteriormente.")
+            return
+
+        try:
+            # Gera nome do arquivo de saída baseado no nome do arquivo de entrada
+            base_name = os.path.splitext(os.path.basename(file_path))[0]
+            output_base = os.path.join(self.output_folder, base_name)
+
+            converter_emit_para_envi(file_path, output_base)
+            self.processed_files.add(file_path)
+
+        except Exception as e:
+            print(f"Erro ao processar arquivo {file_path}: {e}")
 
 
 def converter_emit_para_envi(caminho_arquivo_nc, caminho_saida_base):
@@ -51,6 +94,9 @@ def converter_emit_para_envi(caminho_arquivo_nc, caminho_saida_base):
         tipo_dado_envi = 4  # float32
         byte_order = 0
 
+        # Cria a pasta de saída se não existir
+        os.makedirs(os.path.dirname(caminho_saida_base), exist_ok=True)
+
         caminho_saida_hdr = f"{caminho_saida_base}.hdr"
 
         header_lines = [
@@ -95,8 +141,72 @@ def converter_emit_para_envi(caminho_arquivo_nc, caminho_saida_base):
             dataset.close()
 
 
+def process_existing_files(input_folder, output_folder, processed_files):
+    """Processa todos os arquivos .nc existentes na pasta de entrada"""
+    pattern = os.path.join(input_folder, "*.nc")
+    existing_files = glob.glob(pattern)
+
+    if not existing_files:
+        print(f"Nenhum arquivo .nc encontrado na pasta: {input_folder}")
+        return
+
+    print(f"Encontrados {len(existing_files)} arquivos para processar...")
+
+    for file_path in existing_files:
+        if file_path in processed_files:
+            continue
+
+        try:
+            base_name = os.path.splitext(os.path.basename(file_path))[0]
+            output_base = os.path.join(output_folder, base_name)
+
+            converter_emit_para_envi(file_path, output_base)
+            processed_files.add(file_path)
+
+        except Exception as e:
+            print(f"Erro ao processar arquivo existente {file_path}: {e}")
+
+
+def start_monitoring(input_folder, output_folder):
+    """Inicia o monitoramento da pasta para novos arquivos"""
+    processed_files = set()
+
+    # Primeiro, processa arquivos existentes
+    print("=== PROCESSANDO ARQUIVOS EXISTENTES ===")
+    process_existing_files(input_folder, output_folder, processed_files)
+
+    # Depois, inicia o monitoramento
+    print("\n=== INICIANDO MONITORAMENTO ===")
+    print(f"Monitorando pasta: {input_folder}")
+    print(f"Pasta de saída: {output_folder}")
+    print("Pressione Ctrl+C para parar o monitoramento...")
+
+    event_handler = EMITFileHandler(input_folder, output_folder, processed_files)
+    observer = Observer()
+    observer.schedule(event_handler, input_folder, recursive=False)
+    observer.start()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("\nParando monitoramento...")
+        observer.stop()
+
+    observer.join()
+
+
 # --- COMO USAR O SCRIPT ---
 if __name__ == '__main__':
-    arquivo_nc_entrada = 'C:/Users/hugo/OneDrive/Documentos/codecraft/EMIT_L2A_RFL_001_20250902T123826_2524508_037.nc'
-    arquivo_raw_saida = 'C:/Users/hugo/OneDrive/Documentos/codecraft/parque_das_emas_convertido'
-    converter_emit_para_envi(arquivo_nc_entrada, arquivo_raw_saida)
+    # Configurações
+    pasta_entrada = 'arquivosbrutos'  # Pasta onde os arquivos .nc chegam
+    pasta_saida = 'arquivoRAW'  # Pasta onde os arquivos convertidos serão salvos
+
+    # Garante que as pastas existem
+    os.makedirs(pasta_entrada, exist_ok=True)
+    os.makedirs(pasta_saida, exist_ok=True)
+
+    # Instalação da dependência necessária (executar apenas uma vez)
+    # pip install watchdog
+
+    start_monitoring(pasta_entrada, pasta_saida)
